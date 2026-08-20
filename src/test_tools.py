@@ -6,21 +6,42 @@ from tools import (
 )
 
 
-# Test shipment status tool
-print("Shipment status:")
-print(get_shipment_status("S00000004"))
+def test_get_shipment_status():
+    result = get_shipment_status("S00000004")
+
+    assert isinstance(result, dict)
+    assert result["success"]
+    assert result["shipmentid"] == "S00000004"
 
 
-# Test top profitable shipments tool
-print("\nTop 5 profitable shipments:")
-print(get_top_profitable_shipments_tool(5))
+def test_get_shipment_status_not_found():
+    result = get_shipment_status("INVALID")
+
+    assert isinstance(result, dict)
+    assert result["success"] is False
 
 
-# Test profit by region tool
-print("\nProfit by region:")
-print(get_profit_by_region_tool())
+def test_get_top_profitable_shipments_tool():
+    result = get_top_profitable_shipments_tool(5)
+
+    assert isinstance(result, dict)
+    assert result["success"]
+    assert isinstance(result["shipments"], list)
+    assert len(result["shipments"]) <= 5
 
 
-# Test cancelled shipments tool
-print("\nCancelled shipments:")
-print(get_cancelled_shipments_tool(5))
+def test_get_profit_by_region_tool():
+    result = get_profit_by_region_tool()
+
+    assert isinstance(result, dict)
+    assert result["success"]
+    assert isinstance(result["regions"], list)
+
+
+def test_get_cancelled_shipments_tool():
+    result = get_cancelled_shipments_tool(5)
+
+    assert isinstance(result, dict)
+    assert result["success"]
+    assert isinstance(result["shipments"], list)
+    assert len(result["shipments"]) <= 5

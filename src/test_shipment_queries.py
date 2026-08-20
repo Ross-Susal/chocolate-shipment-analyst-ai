@@ -6,41 +6,46 @@ from shipment_queries import (
 )
 
 
-# Test shipment lookup
-shipment = get_shipment("S00000004")
+def test_get_shipment():
+    result = get_shipment("S00000004")
 
-if shipment is None:
-    print("Shipment not found")
-else:
-    print("Shipment ID:", shipment["shipmentid"])
-    print("Status:", shipment["order_status"])
-    print("Country:", shipment["country"])
-    print("Profit:", shipment["profit"])
+    assert result is not None
+    assert result["shipmentid"] == "S00000004"
 
 
-# Test cancelled shipments
-total_cancelled, cancelled = get_cancelled_shipments(5)
+def test_get_shipment_not_found():
+    result = get_shipment("Invalid")
 
-print("\nTotal cancelled shipments:", total_cancelled)
-print("Returned cancelled shipments:", len(cancelled))
-
-for shipment in cancelled:
-    print(shipment)
+    assert result is None
 
 
-# Test top profitable shipments
-top_shipments = get_top_profitable_shipments(5)
+def test_get_cancelled_shipments():
+    result1, result2 = get_cancelled_shipments(5)
 
-print("\nTop 5 profitable shipments:")
+    assert isinstance(result1, int)
+    assert isinstance(result2, list)
+    assert len(result2) <= 5
 
-for shipment in top_shipments:
-    print(shipment)
+    for shipment in result2:
+        assert shipment["shipmentid"] is not None
 
 
-# Test profit by region
-profit_by_region = get_profit_by_region()
+def test_get_top_profitable_shipments():
+    result = get_top_profitable_shipments(5)
 
-print("\nProfit by region:")
+    assert isinstance(result, list)
+    assert len(result) <= 5
 
-for row in profit_by_region:
-    print(row)
+    for shipment in result:
+        assert shipment["shipmentid"] is not None
+        assert shipment["profit"] is not None
+
+
+def test_get_profit_by_region():
+    result = get_profit_by_region()
+
+    assert isinstance(result, list)
+
+    for row in result:
+        assert row["region"] is not None
+        assert row["total_profit"] is not None

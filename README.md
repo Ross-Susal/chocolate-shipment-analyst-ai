@@ -114,7 +114,7 @@ data/
 | PostgreSQL | Relational database |
 | SQLAlchemy | ORM and database interaction |
 | psycopg2 | PostgreSQL connectivity |
-| Google Gemini API (gemini-2.5-flash) | Natural-language AI and function calling |
+| Google Gemini API (gemini-3.6-flash) | Natural-language AI and function calling |
 | python-dotenv | Environment variable management |
 | pytest | Automated testing |
 | Git/GitHub | Version control |
@@ -187,12 +187,28 @@ Performance was evaluated using both absolute profit and profit margin, showing 
 - Evaluate salesperson performance using both absolute profit and profit margin.
 
 ## Visualizations
-The project includes:
-- Revenue by Region
-- Monthly Revenue Trend
-- Profit by Product
-- Profit Margin by Product
-The charts are stored in the charts/ directory.
+
+### Revenue by Region
+
+![Revenue by Region](charts/revenue_by_region.png)
+
+### Monthly Revenue Trend
+
+![Monthly Revenue Trend](charts/monthly_revenue_trend.png)
+
+### Profit by Product
+
+![Profit by Product](charts/profit_by_product.png)
+
+### Profit Margin by Product
+
+![Profit Margin by Product](charts/profit_margin_by_product.png)
+
+## AI in Action
+
+The application allows users to ask business questions in natural language. Gemini selects the appropriate analytical tool, queries the PostgreSQL-backed data layer, and generates a natural-language response.
+
+![Gemini Function Calling Demo](screenshots/gemini_demo.png)
 
 ## Gemini AI Tools
 
@@ -215,12 +231,20 @@ Returns the total number of cancelled shipments and a limited list of cancelled 
 ## Database Design
 
 SQLAlchemy maps the shipment data to PostgreSQL.
+
 The database layer contains:
 - SQLAlchemy models
 - Database connection management
 - Shipment query functions
 - Reusable analytical queries
+
 The separation between database access, query logic, tools, and the Gemini client makes the application easier to maintain and extend.
+
+### PostgreSQL Analysis Example
+
+The PostgreSQL database can also be queried directly for analytical results such as revenue and profit performance by country and region.
+
+![PostgreSQL Analysis](screenshots/postgresql_analysis.png)
 
 ## Testing
 
@@ -236,10 +260,13 @@ The test suite covers:
 - Expected result fields
 - List-based results
 - Result limits
+
 Run:
 pytest
 Current result:
 10 passed
+
+![Pytest Test Results](screenshots/pytest_tests.png)
 
 ## Installation
 
@@ -280,10 +307,13 @@ Database credentials must remain private and should never be committed to the re
 
 Activate the virtual environment:
 .venv\Scripts\Activate.ps1
+
 Run the Gemini application:
 python src/gemini_client.py
+
 The application prompts:
 Ask about a shipment:
+
 Example:
 Show me the total profit by region. Which region is highest?
 
@@ -319,7 +349,7 @@ This project demonstrates practical skills in:
 - Automated testing
 - Business analysis
 - Git and GitHub
-The project uses the `gemini-2.5-flash` model to combine traditional data analytics with an LLM interface to create a practical AI-powered business analytics application.
+The project uses the `gemini-3.6-flash` model to combine traditional data analytics with an LLM interface to create a practical AI-powered business analytics application.
 
 ## Future Improvements
 

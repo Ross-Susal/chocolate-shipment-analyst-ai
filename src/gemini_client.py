@@ -78,7 +78,7 @@ shipment_tool = types.Tool(
 
 
 chat = client.chats.create(
-    model="gemini-2.5-flash",
+    model="gemini-3.6-flash",
     config=types.GenerateContentConfig(
         tools=[shipment_tool
             ]
